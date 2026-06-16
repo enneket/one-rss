@@ -1,0 +1,150 @@
+{"ts":"2026-06-15T08:57:20.475Z","cmd":"status","args":"","origin":"about:blank","durationMs":4,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T08:58:08.073Z","cmd":"goto","args":"http://localhost:6011","origin":"http://localhost:6011/","durationMs":105,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T08:58:20.650Z","cmd":"screenshot","args":"/tmp/one-rss-home.png","origin":"http://localhost:6011/","durationMs":80,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T08:59:09.828Z","cmd":"text","args":"","origin":"http://localhost:6011/","durationMs":5,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:05:03.080Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":31,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:05:20.903Z","cmd":"click","args":"@e1","origin":"http://localhost:6011/","durationMs":39,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:05:28.413Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":11,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:05:37.753Z","cmd":"console","args":"--errors","origin":"http://localhost:6011/","durationMs":0,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:08:52.051Z","cmd":"reload","args":"","origin":"http://localhost:6011/","durationMs":85,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:09:05.011Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":29,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:09:40.709Z","cmd":"click","args":"@e1","origin":"http://localhost:6011/","durationMs":60,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:09:50.285Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":17,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:10:15.596Z","cmd":"fill","args":"@e9 https://hnrss.org/frontpage","origin":"http://localhost:6011/","durationMs":28,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:10:33.447Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":24,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:11:09.356Z","cmd":"click","args":"@e13","origin":"http://localhost:6011/","durationMs":39,"status":"error","hasCookies":false,"mode":"launched","error":"click: Error: strict mode violation: getByRole('button', { name: 'Add' }) resolved to 2 elements:\n    1) <button title=\"Add Feed\" class=\"p-2 rounded-lg hover:bg-[var(--bg-tertiary)] transition-colors\">…</button> aka getByRole('button', { name: 'Add Feed' })\n    2) <button class=\"btn btn-primary\">Add…"}
+{"ts":"2026-06-15T09:11:22.396Z","cmd":"click","args":"button:has-text('Add'):not(:has-text('Feed'))","origin":"http://localhost:6011/","durationMs":51,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:11:59.907Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":22,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:12:31.173Z","cmd":"click","args":"@c7","origin":"http://localhost:6011/","durationMs":41,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:12:37.454Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":10,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:15:27.990Z","cmd":"reload","args":"","origin":"http://localhost:6011/","durationMs":99,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:15:33.439Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":71,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:16:30.184Z","cmd":"click","args":"@c9","origin":"http://localhost:6011/","durationMs":61,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:16:40.030Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":68,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:16:52.019Z","cmd":"click","args":"@e31","origin":"http://localhost:6011/","durationMs":47,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:17:09.688Z","cmd":"click","args":"@c10","origin":"http://localhost:6011/","durationMs":91,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:17:34.566Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":54,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:18:05.999Z","cmd":"text","args":"","origin":"http://localhost:6011/","durationMs":4,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:37:24.472Z","cmd":"click","args":"@c9","origin":"http://localhost:6011/","durationMs":54,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:37:34.989Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":43,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:38:29.682Z","cmd":"select","args":"@e26 dark","origin":"http://localhost:6011/","durationMs":24,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:39:29.864Z","cmd":"click","args":"@e32","origin":"http://localhost:6011/","durationMs":37,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:39:39.470Z","cmd":"console","args":"--errors","origin":"http://localhost:6011/","durationMs":0,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:39:49.417Z","cmd":"network","args":"","origin":"http://localhost:6011/","durationMs":0,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:45:04.564Z","cmd":"reload","args":"","origin":"http://localhost:6011/","durationMs":39,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:45:31.388Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":31,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:46:03.034Z","cmd":"click","args":"@c5","origin":"http://localhost:6011/","durationMs":58,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:46:12.882Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":20,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:46:26.259Z","cmd":"select","args":"@e25 light","origin":"http://localhost:6011/","durationMs":12,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:46:33.680Z","cmd":"click","args":"@e31","origin":"http://localhost:6011/","durationMs":35,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:47:14.922Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":17,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-15T09:47:21.467Z","cmd":"click","args":"@e8","origin":"http://localhost:6011/","durationMs":37,"status":"error","hasCookies":false,"mode":"launched","error":"click: Error: strict mode violation: getByRole('button') resolved to 23 elements:\n    1) <button title=\"Add Feed\" class=\"p-2 rounded-lg hover:bg-[var(--bg-tertiary)] transition-colors\">…</button> aka getByRole('button', { name: 'Add Feed' })\n    2) <button class=\"flex items-center w-full px-3 py-2 r…"}
+{"ts":"2026-06-15T09:47:31.576Z","cmd":"click","args":"button:has-text('Cancel')","origin":"http://localhost:6011/","durationMs":26,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T00:32:33.232Z","cmd":"goto","args":"http://localhost:6011","origin":"http://localhost:6011/","durationMs":80,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T00:32:33.325Z","cmd":"text","args":"","origin":"http://localhost:6011/","durationMs":6,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T00:34:36.453Z","cmd":"reload","args":"","origin":"http://localhost:6011/","durationMs":38,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T00:34:36.524Z","cmd":"text","args":"","origin":"http://localhost:6011/","durationMs":4,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T01:42:33.044Z","cmd":"snapshot","args":"-i","origin":"about:blank","durationMs":53,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T01:42:39.755Z","cmd":"goto","args":"http://localhost:6011","origin":"http://localhost:6011/","durationMs":113,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T01:42:45.369Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":76,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T01:43:02.469Z","cmd":"click","args":"@e8","origin":"http://localhost:6011/","durationMs":76,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T01:43:10.266Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":58,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T01:43:15.238Z","cmd":"select","args":"@e26 light","origin":"http://localhost:6011/","durationMs":17,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T01:43:28.654Z","cmd":"click","args":"@e32","origin":"http://localhost:6011/","durationMs":47,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T01:43:34.933Z","cmd":"network","args":"","origin":"http://localhost:6011/","durationMs":2,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T01:43:50.949Z","cmd":"reload","args":"","origin":"http://localhost:6011/","durationMs":51,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T01:43:59.406Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":70,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T01:44:06.563Z","cmd":"click","args":"@e8","origin":"http://localhost:6011/","durationMs":58,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T01:44:11.923Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":62,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T02:10:15.618Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":62,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T02:10:23.469Z","cmd":"is","args":"enabled @e32","origin":"http://localhost:6011/","durationMs":17,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T02:11:10.627Z","cmd":"console","args":"","origin":"http://localhost:6011/","durationMs":0,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T02:11:19.726Z","cmd":"network","args":"--clear","origin":"http://localhost:6011/","durationMs":0,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T02:11:33.633Z","cmd":"click","args":"@e32","origin":"http://localhost:6011/","durationMs":39,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T02:11:34.683Z","cmd":"network","args":"","origin":"http://localhost:6011/","durationMs":0,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T02:14:12.841Z","cmd":"reload","args":"","origin":"http://localhost:6011/","durationMs":70,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T02:14:17.333Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":66,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T02:14:28.306Z","cmd":"click","args":"@e8","origin":"http://localhost:6011/","durationMs":77,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T02:14:41.529Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":52,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T02:14:48.159Z","cmd":"click","args":"@e32","origin":"http://localhost:6011/","durationMs":34,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T02:14:53.245Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":47,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T02:15:13.010Z","cmd":"click","args":"@e8","origin":"http://localhost:6011/","durationMs":33,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T02:15:20.874Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":57,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T02:16:21.742Z","cmd":"select","args":"@e26 dark","origin":"http://localhost:6011/","durationMs":21,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T02:17:06.240Z","cmd":"click","args":"@e32","origin":"http://localhost:6011/","durationMs":49,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T02:17:12.860Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":41,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T03:15:27.580Z","cmd":"goto","args":"http://localhost:6011","origin":"http://localhost:6011/","durationMs":78,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T03:15:41.368Z","cmd":"text","args":"","origin":"http://localhost:6011/","durationMs":7,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T03:16:12.780Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":108,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T03:16:32.932Z","cmd":"click","args":"@e8","origin":"http://localhost:6011/","durationMs":97,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T03:16:49.363Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":83,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T03:16:55.928Z","cmd":"select","args":"@e23 en-US","origin":"http://localhost:6011/","durationMs":33,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T03:17:05.426Z","cmd":"click","args":"@e32","origin":"http://localhost:6011/","durationMs":38,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T03:17:12.908Z","cmd":"text","args":"","origin":"http://localhost:6011/","durationMs":4,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T03:19:21.370Z","cmd":"goto","args":"http://localhost:6011","origin":"http://localhost:6011/","durationMs":80,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T03:19:47.574Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":70,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T03:19:54.067Z","cmd":"click","args":"@e8","origin":"http://localhost:6011/","durationMs":50,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T03:19:59.798Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":59,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T03:20:03.206Z","cmd":"select","args":"@e23 zh-CN","origin":"http://localhost:6011/","durationMs":18,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T03:20:17.316Z","cmd":"click","args":"@e32","origin":"http://localhost:6011/","durationMs":43,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T03:20:23.819Z","cmd":"text","args":"","origin":"http://localhost:6011/","durationMs":3,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T03:27:15.363Z","cmd":"goto","args":"http://localhost:6011","origin":"http://localhost:6011/","durationMs":94,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T03:27:55.721Z","cmd":"text","args":"","origin":"http://localhost:6011/","durationMs":5,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T03:28:10.082Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":99,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T03:28:26.549Z","cmd":"click","args":"@e8","origin":"http://localhost:6011/","durationMs":90,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T03:28:39.143Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":54,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T03:32:33.071Z","cmd":"goto","args":"http://localhost:6011","origin":"http://localhost:6011/","durationMs":77,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T03:32:51.249Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":99,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T03:33:22.614Z","cmd":"click","args":"@e8","origin":"http://localhost:6011/","durationMs":66,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T03:34:14.063Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":52,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T03:34:22.493Z","cmd":"click","args":"@e17","origin":"http://localhost:6011/","durationMs":43,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T03:34:33.142Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":47,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T05:37:29.855Z","cmd":"goto","args":"http://localhost:6011","origin":"http://localhost:6011/","durationMs":118,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T05:37:34.491Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":117,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T05:37:43.522Z","cmd":"reload","args":"","origin":"http://localhost:6011/","durationMs":53,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T05:37:47.988Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":80,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T05:39:53.244Z","cmd":"goto","args":"http://localhost:6011","origin":"http://localhost:6011/","durationMs":77,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T05:39:58.484Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":85,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T05:45:45.078Z","cmd":"goto","args":"http://localhost:6011","origin":"http://localhost:6011/","durationMs":64,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T05:45:54.864Z","cmd":"text","args":"","origin":"http://localhost:6011/","durationMs":5,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T05:46:10.293Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":82,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T05:54:45.677Z","cmd":"goto","args":"http://localhost:6011","origin":"http://localhost:6011/","durationMs":58,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T05:54:45.895Z","cmd":"screenshot","args":"/tmp/search-box.png --selector .relative","origin":"http://localhost:6011/","durationMs":143,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T05:55:09.773Z","cmd":"html","args":".relative","origin":"http://localhost:6011/","durationMs":5,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T05:57:34.632Z","cmd":"goto","args":"http://localhost:6011","origin":"http://localhost:6011/","durationMs":67,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T05:57:34.717Z","cmd":"html","args":".relative","origin":"http://localhost:6011/","durationMs":23,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T06:14:55.133Z","cmd":"goto","args":"http://localhost:6011","origin":"http://localhost:6011/","durationMs":71,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T06:15:25.592Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":81,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T06:15:55.511Z","cmd":"click","args":"@e11","origin":"http://localhost:6011/","durationMs":55,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T06:16:23.010Z","cmd":"text","args":"","origin":"http://localhost:6011/","durationMs":4,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T06:16:40.323Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":59,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T06:16:46.728Z","cmd":"click","args":"@e14","origin":"http://localhost:6011/","durationMs":42,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T06:17:04.772Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":68,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T06:17:09.876Z","cmd":"click","args":"@e11","origin":"http://localhost:6011/","durationMs":34,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T06:17:19.009Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":53,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T06:17:22.392Z","cmd":"click","args":"@e14","origin":"http://localhost:6011/","durationMs":33,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T06:17:33.372Z","cmd":"snapshot","args":"-C","origin":"http://localhost:6011/","durationMs":47,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T06:17:40.134Z","cmd":"click","args":"@e26","origin":"http://localhost:6011/","durationMs":98,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T06:17:43.820Z","cmd":"text","args":"","origin":"http://localhost:6011/","durationMs":4,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T06:20:18.335Z","cmd":"goto","args":"http://localhost:6011","origin":"http://localhost:6011/","durationMs":63,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T06:20:23.317Z","cmd":"snapshot","args":"-C","origin":"http://localhost:6011/","durationMs":130,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T06:21:02.040Z","cmd":"click","args":"@e26","origin":"http://localhost:6011/","durationMs":56,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T06:21:19.045Z","cmd":"text","args":"","origin":"http://localhost:6011/","durationMs":5,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T08:03:52.649Z","cmd":"status","args":"","origin":"about:blank","durationMs":5,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T08:03:58.538Z","cmd":"goto","args":"http://localhost:6011","origin":"http://localhost:6011/","durationMs":82,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T08:03:58.657Z","cmd":"viewport","args":"1280x800","origin":"http://localhost:6011/","durationMs":33,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T08:03:59.809Z","cmd":"screenshot","args":"/tmp/one-rss-sidebar.png","origin":"http://localhost:6011/","durationMs":87,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T08:04:05.552Z","cmd":"snapshot","args":"-s .flex.flex-col.h-full","origin":"http://localhost:6011/","durationMs":45,"status":"error","hasCookies":false,"mode":"launched","error":"snapshot: Error: strict mode violation: locator('.flex.flex-col.h-full') resolved to 3 elements:\n    1) <div class=\"flex flex-col h-full bg-[var(--bg-secondary)] w-64 flex-shrink-0 border-r border-[var(--border-color)]\">…</div> aka getByText('OneRSS全部未读29收藏稍后阅读分类https://')\n    2) <div class=\"flex fl…"}
+{"ts":"2026-06-16T08:04:10.800Z","cmd":"snapshot","args":"-i -s .flex-1.overflow-y-auto","origin":"http://localhost:6011/","durationMs":18,"status":"error","hasCookies":false,"mode":"launched","error":"snapshot: Error: strict mode violation: locator('.flex-1.overflow-y-auto') resolved to 2 elements:\n    1) <div class=\"flex-1 overflow-y-auto p-2\">…</div> aka getByText('分类https://hnrss.org/')\n    2) <div class=\"flex-1 overflow-y-auto\">…</div> aka locator('div').filter({ hasText: 'Kino, a high-perfor…"}
+{"ts":"2026-06-16T08:04:15.950Z","cmd":"snapshot","args":"-i","origin":"http://localhost:6011/","durationMs":113,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T08:04:23.634Z","cmd":"inspect","args":"@e3","origin":"http://localhost:6011/","durationMs":36,"status":"error","hasCookies":false,"mode":"launched","error":"Element not found: @e3 — send: Protocol error (DOM.querySelector): DOM Error while querying"}
+{"ts":"2026-06-16T08:04:24.281Z","cmd":"inspect","args":"@e7","origin":"http://localhost:6011/","durationMs":5,"status":"error","hasCookies":false,"mode":"launched","error":"Element not found: @e7 — send: Protocol error (DOM.querySelector): DOM Error while querying"}
+{"ts":"2026-06-16T08:04:31.509Z","cmd":"js","args":"\nlet filters = document.querySelector('.border-b.border-\\[var\\(--border-color\\)\\]');\nlet feeds = document.querySelector('.flex-1.overflow-y-auto');\nconsole.log('Filters container:', filters ? filters.…","origin":"http://localhost:6011/","durationMs":3,"status":"error","hasCookies":false,"mode":"launched","error":"evaluate: SyntaxError: Failed to execute 'querySelector' on 'Document': '.border-b.border-[var(--border-color)]' is not a valid selector.\n    at eval (eval at evaluate (:290:30), <anonymous>:1:24)\n    at eval (<anonymous>)\n    at UtilityScript.evaluate (<anonymous>:290:30)\n    at UtilityScript.<anon…"}
+{"ts":"2026-06-16T08:04:38.869Z","cmd":"js","args":"\n// Find sidebar elements by text content\nlet allBtns = document.querySelectorAll('button');\nlet sidebarBtns = [];\nfor (let b of allBtns) {\n  let txt = b.textContent.trim();\n  if (txt === '全部' || txt …","origin":"http://localhost:6011/","durationMs":12,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T08:04:46.217Z","cmd":"js","args":"\nlet btns = Array.from(document.querySelectorAll('.flex.flex-col.h-full button'));\nbtns = btns.filter(b => b.offsetParent !== null);\nconsole.log('Found', btns.length, 'visible buttons in sidebar');\nbt…","origin":"http://localhost:6011/","durationMs":6,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T08:04:52.051Z","cmd":"js","args":"document.querySelector('.flex.flex-col.h-full')?.querySelector('.flex-1.overflow-y-auto')?.innerHTML?.slice(0, 2000)","origin":"http://localhost:6011/","durationMs":2,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T08:05:01.055Z","cmd":"js","args":"\nJSON.stringify(\n  Array.from(document.querySelectorAll('button')).filter(b => b.offsetParent).slice(0,10).map(b => ({\n    text: b.textContent.trim().slice(0,25),\n    left: Math.round(b.getBoundingCli…","origin":"http://localhost:6011/","durationMs":14,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T08:05:11.689Z","cmd":"js","args":"\nlet all = document.querySelectorAll('button');\nlet filters = ['全部','未读','收藏','稍后阅读'];\nlet result = [];\nfor (let b of all) {\n  let t = b.textContent.trim();\n  if (filters.some(f => t.startsWith(f))) {…","origin":"http://localhost:6011/","durationMs":3,"status":"error","hasCookies":false,"mode":"launched","error":"evaluate: SyntaxError: Failed to execute 'querySelector' on 'Element': 'span:not(.px-1.5):not(.ml-auto)' is not a valid selector.\n    at eval (eval at evaluate (:290:30), <anonymous>:8:18)\n    at eval (<anonymous>)\n    at UtilityScript.evaluate (<anonymous>:290:30)\n    at UtilityScript.<anonymous> (…"}
+{"ts":"2026-06-16T08:05:18.614Z","cmd":"js","args":"\nlet all = document.querySelectorAll('button');\nlet result = [];\nfor (let b of all) {\n  let r = b.getBoundingClientRect();\n  let txt = (b.textContent || '').trim().slice(0, 20);\n  let svgs = b.querySe…","origin":"http://localhost:6011/","durationMs":5,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T08:05:27.556Z","cmd":"js","args":"\n// Find the '分类' header text position\nlet all = document.querySelectorAll('.flex-1.overflow-y-auto div');\nfor (let d of all) {\n  let t = d.textContent.trim();\n  if (t === '分类' || d.classList.contains…","origin":"http://localhost:6011/","durationMs":4,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-16T08:05:33.633Z","cmd":"js","args":"\nlet result = [];\nlet feedArea = document.querySelector('.flex-1.overflow-y-auto');\nif (feedArea) {\n  let children = feedArea.children;\n  for (let i = 0; i < children.length; i++) {\n    let c = childr…","origin":"http://localhost:6011/","durationMs":2,"status":"ok","hasCookies":false,"mode":"launched"}
