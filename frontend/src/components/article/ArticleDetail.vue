@@ -13,6 +13,7 @@ import {
   PhExport
 } from '@phosphor-icons/vue'
 import axios from 'axios'
+import '@/assets/article-content.css'
 
 const store = useAppStore()
 const { t } = useI18n()
