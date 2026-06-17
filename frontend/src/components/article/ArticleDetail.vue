@@ -19,6 +19,7 @@ const store = useAppStore()
 const { t } = useI18n()
 const articleContent = ref('')
 const isLoadingContent = ref(false)
+const scrollContainer = ref<HTMLElement | null>(null)
 
 const currentArticle = computed(() => {
   if (!store.currentArticleId) return null
@@ -31,6 +32,9 @@ watch(() => store.currentArticleId, async (newId) => {
     articleContent.value = ''
     return
   }
+  
+  // 滚动到顶部
+  scrollContainer.value?.scrollTo(0, 0)
   
   isLoadingContent.value = true
   try {
@@ -171,7 +175,7 @@ function openOriginal() {
       </div>
 
       <!-- Content -->
-      <div class="flex-1 overflow-y-auto p-6">
+      <div ref="scrollContainer" class="flex-1 overflow-y-auto p-6">
         <div v-if="currentArticle.image_url" class="mb-6">
           <img 
             :src="currentArticle.image_url" 
