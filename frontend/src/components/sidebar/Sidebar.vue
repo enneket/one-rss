@@ -12,7 +12,9 @@ import {
   PhMagnifyingGlass,
   PhRss,
   PhPencilSimple,
-  PhArrowsClockwise
+  PhArrowsClockwise,
+  PhExport,
+  PhDownloadSimple
 } from '@phosphor-icons/vue'
 import AppLogo from '@/components/AppLogo.vue'
 import AddFeedModal from '@/components/modals/AddFeedModal.vue'
@@ -26,11 +28,40 @@ const showAddFeed = ref(false)
 const showSettings = ref(false)
 const editingFeed = ref<Feed | null>(null)
 const isRefreshing = ref(false)
+const importInput = ref<HTMLInputElement | null>(null)
 
 async function handleRefresh() {
   isRefreshing.value = true
   await store.refreshAll()
   setTimeout(() => { isRefreshing.value = false }, 500)
+}
+
+async function handleExport() {
+  try {
+    await store.exportFeeds()
+  } catch (error) {
+    console.error('Export failed:', error)
+  }
+}
+
+function handleImportClick() {
+  importInput.value?.click()
+}
+
+async function handleImport(event: Event) {
+  const input = event.target as HTMLInputElement
+  const file = input.files?.[0]
+  if (!file) return
+  
+  try {
+    const result = await store.importFeeds(file)
+    alert(t('sidebar.importSuccess', { imported: result.imported, skipped: result.skipped }))
+  } catch (error) {
+    console.error('Import failed:', error)
+    alert(t('sidebar.importFailed'))
+  } finally {
+    input.value = ''
+  }
 }
 
 function editFeed(feed: Feed, e: MouseEvent) {
@@ -172,7 +203,25 @@ function getUnreadCount(feedId: number): number {
     </div>
 
     <!-- Footer -->
-    <div class="p-2 border-t border-[var(--border-color)]">
+    <div class="p-2 border-t border-[var(--border-color)] space-y-1">
+      <div class="flex gap-1">
+        <button 
+          @click="handleExport"
+          class="flex items-center flex-1 px-3 py-2 rounded-lg hover:bg-[var(--bg-tertiary)] transition-colors text-[var(--text-primary)] text-sm"
+          :title="t('sidebar.exportFeeds')"
+        >
+          <PhExport :size="16" class="mr-2" />
+          <span>{{ t('sidebar.exportFeeds') }}</span>
+        </button>
+        <button 
+          @click="handleImportClick"
+          class="flex items-center flex-1 px-3 py-2 rounded-lg hover:bg-[var(--bg-tertiary)] transition-colors text-[var(--text-primary)] text-sm"
+          :title="t('sidebar.importFeeds')"
+        >
+          <PhDownloadSimple :size="16" class="mr-2" />
+          <span>{{ t('sidebar.importFeeds') }}</span>
+        </button>
+      </div>
       <button 
         @click="showSettings = true"
         class="flex items-center w-full px-3 py-2 rounded-lg hover:bg-[var(--bg-tertiary)] transition-colors text-[var(--text-primary)]"
@@ -181,6 +230,15 @@ function getUnreadCount(feedId: number): number {
         <span>{{ t('common.settings') }}</span>
       </button>
     </div>
+    
+    <!-- Hidden file input for import -->
+    <input 
+      ref="importInput"
+      type="file"
+      accept=".xml,.opml"
+      class="hidden"
+      @change="handleImport"
+    />
 
     <!-- Add Feed Modal -->
     <AddFeedModal v-if="showAddFeed" @close="showAddFeed = false" />

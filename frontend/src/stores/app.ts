@@ -300,6 +300,38 @@ export const useAppStore = defineStore('app', () => {
     }
   }
 
+  async function exportFeeds() {
+    try {
+      const response = await axios.get('/api/feeds/export', { responseType: 'blob' })
+      const url = window.URL.createObjectURL(new Blob([response.data]))
+      const link = document.createElement('a')
+      link.href = url
+      link.setAttribute('download', 'onerss-subscriptions.xml')
+      document.body.appendChild(link)
+      link.click()
+      link.remove()
+      window.URL.revokeObjectURL(url)
+    } catch (error) {
+      console.error('Failed to export feeds:', error)
+      throw error
+    }
+  }
+
+  async function importFeeds(file: File) {
+    try {
+      const text = await file.text()
+      const response = await axios.post('/api/feeds/import', text, {
+        headers: { 'Content-Type': 'application/xml' }
+      })
+      await fetchFeeds()
+      await fetchUnreadCounts()
+      return response.data
+    } catch (error) {
+      console.error('Failed to import feeds:', error)
+      throw error
+    }
+  }
+
   return {
     articles,
     feeds,
@@ -332,6 +364,8 @@ export const useAppStore = defineStore('app', () => {
     addFeed,
     deleteFeed,
     selectArticle,
-    refreshAll
+    refreshAll,
+    exportFeeds,
+    importFeeds
   }
 })

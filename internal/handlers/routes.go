@@ -32,6 +32,8 @@ func SetupRoutes(mux *http.ServeMux, db *sql.DB, fetcher *feed.Fetcher) {
 	mux.HandleFunc("/api/feeds/update", handleUpdateFeed(db))
 	mux.HandleFunc("/api/feeds/refresh", handleRefreshFeed(db))
 	mux.HandleFunc("/api/feeds/reorder", handleReorderFeeds(db))
+	mux.HandleFunc("/api/feeds/export", handleExportFeeds(db))
+	mux.HandleFunc("/api/feeds/import", handleImportFeeds(db))
 
 	// Article handlers
 	mux.HandleFunc("/api/articles", handleArticles(db))
