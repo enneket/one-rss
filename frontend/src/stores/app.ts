@@ -57,6 +57,7 @@ export interface UnreadCounts {
 }
 
 export type Filter = 'all' | 'unread' | 'favorites' | 'readLater' | 'imageGallery' | ''
+export type ViewMode = 'list' | 'card' | 'compact'
 
 export const useAppStore = defineStore('app', () => {
   const articles = ref<Article[]>([])
@@ -71,6 +72,7 @@ export const useAppStore = defineStore('app', () => {
   const page = ref(1)
   const hasMore = ref(true)
   const searchQuery = ref('')
+  const viewMode = ref<ViewMode>((localStorage.getItem('viewMode') as ViewMode) || 'list')
 
   const feedMap = computed(() => {
     const map: Record<number, Feed> = {}
@@ -300,6 +302,51 @@ export const useAppStore = defineStore('app', () => {
     }
   }
 
+  function setViewMode(mode: ViewMode) {
+    viewMode.value = mode
+    localStorage.setItem('viewMode', mode)
+  }
+
+  async function batchMarkAsRead(articleIds: number[]) {
+    try {
+      await axios.post('/api/articles/batch-read', { ids: articleIds })
+      articles.value.forEach(article => {
+        if (articleIds.includes(article.id)) {
+          article.is_read = true
+        }
+      })
+      await fetchUnreadCounts()
+    } catch (error) {
+      console.error('Failed to batch mark as read:', error)
+    }
+  }
+
+  async function batchToggleFavorite(articleIds: number[]) {
+    try {
+      await axios.post('/api/articles/batch-favorite', { ids: articleIds })
+      articles.value.forEach(article => {
+        if (articleIds.includes(article.id)) {
+          article.is_favorite = !article.is_favorite
+        }
+      })
+    } catch (error) {
+      console.error('Failed to batch toggle favorite:', error)
+    }
+  }
+
+  async function batchToggleHide(articleIds: number[]) {
+    try {
+      await axios.post('/api/articles/batch-hide', { ids: articleIds })
+      articles.value.forEach(article => {
+        if (articleIds.includes(article.id)) {
+          article.is_hidden = !article.is_hidden
+        }
+      })
+    } catch (error) {
+      console.error('Failed to batch toggle hide:', error)
+    }
+  }
+
   async function exportFeeds() {
     try {
       const response = await axios.get('/api/feeds/export', { responseType: 'blob' })
@@ -345,6 +392,7 @@ export const useAppStore = defineStore('app', () => {
     page,
     hasMore,
     searchQuery,
+    viewMode,
     feedMap,
     tagMap,
     filteredArticles,
@@ -365,6 +413,10 @@ export const useAppStore = defineStore('app', () => {
     deleteFeed,
     selectArticle,
     refreshAll,
+    setViewMode,
+    batchMarkAsRead,
+    batchToggleFavorite,
+    batchToggleHide,
     exportFeeds,
     importFeeds
   }

@@ -9,6 +9,7 @@ import (
 	"github.com/zjx/one-rss/internal/ai"
 	"github.com/zjx/one-rss/internal/feed"
 	"github.com/zjx/one-rss/internal/integration"
+	"github.com/zjx/one-rss/internal/rsshub"
 	"github.com/zjx/one-rss/internal/statistics"
 	"github.com/zjx/one-rss/internal/summary"
 	"github.com/zjx/one-rss/internal/translation"
@@ -21,9 +22,13 @@ func SetupRoutes(mux *http.ServeMux, db *sql.DB, fetcher *feed.Fetcher) {
 	aiSvc := ai.NewService(db)
 	integrationSvc := integration.NewService(db)
 	statsSvc := statistics.NewService(db)
+	rsshubProxy := rsshub.NewProxy()
 
 	// Health check
 	mux.HandleFunc("/api/health", handleHealth(db))
+
+	// RSSHub proxy - 内置 RSSHub
+	mux.HandleFunc("/rsshub/", rsshubProxy.HandleProxy)
 
 	// Feed handlers
 	mux.HandleFunc("/api/feeds", handleFeeds(db))
@@ -34,6 +39,7 @@ func SetupRoutes(mux *http.ServeMux, db *sql.DB, fetcher *feed.Fetcher) {
 	mux.HandleFunc("/api/feeds/reorder", handleReorderFeeds(db))
 	mux.HandleFunc("/api/feeds/export", handleExportFeeds(db))
 	mux.HandleFunc("/api/feeds/import", handleImportFeeds(db))
+	mux.HandleFunc("/api/feeds/discover", handleDiscoverFeeds(fetcher))
 
 	// Article handlers
 	mux.HandleFunc("/api/articles", handleArticles(db))
@@ -44,6 +50,9 @@ func SetupRoutes(mux *http.ServeMux, db *sql.DB, fetcher *feed.Fetcher) {
 	mux.HandleFunc("/api/articles/toggle-hide", handleToggleHide(db))
 	mux.HandleFunc("/api/articles/mark-all-read", handleMarkAllRead(db))
 	mux.HandleFunc("/api/articles/unread-counts", handleUnreadCounts(db))
+	mux.HandleFunc("/api/articles/batch-read", handleBatchRead(db))
+	mux.HandleFunc("/api/articles/batch-favorite", handleBatchFavorite(db))
+	mux.HandleFunc("/api/articles/batch-hide", handleBatchHide(db))
 
 	// Translation handlers
 	mux.HandleFunc("/api/articles/translate", handleTranslate(translationSvc))
@@ -434,6 +443,32 @@ func handleRSSHubValidate(svc *integration.Service) http.HandlerFunc {
 		}
 
 		jsonResponse(w, map[string]bool{"valid": valid})
+	}
+}
+
+func handleDiscoverFeeds(fetcher *feed.Fetcher) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodGet {
+			errorResponse(w, http.StatusMethodNotAllowed, "Method not allowed")
+			return
+		}
+
+		url := r.URL.Query().Get("url")
+		if url == "" {
+			errorResponse(w, http.StatusBadRequest, "URL is required")
+			return
+		}
+
+		feeds, err := fetcher.DiscoverFeeds(url)
+		if err != nil {
+			errorResponse(w, http.StatusInternalServerError, "Failed to discover feeds")
+			return
+		}
+
+		jsonResponse(w, map[string]interface{}{
+			"feeds": feeds,
+			"count": len(feeds),
+		})
 	}
 }
 

@@ -6,26 +6,34 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 
 	"github.com/mmcdole/gofeed"
 	"github.com/zjx/one-rss/internal/models"
+	"github.com/zjx/one-rss/internal/sanitizer"
 )
 
 type Fetcher struct {
-	db     *sql.DB
-	client *http.Client
-	parser *gofeed.Parser
+	db        *sql.DB
+	client    *http.Client
+	parser    *gofeed.Parser
+	rsshubURL string
 }
 
 func NewFetcher(db *sql.DB) *Fetcher {
+	rsshubURL := os.Getenv("RSSHUB_URL")
+	if rsshubURL == "" {
+		rsshubURL = "http://rsshub:1200"
+	}
 	return &Fetcher{
 		db: db,
 		client: &http.Client{
 			Timeout: 30 * time.Second,
 		},
-		parser: gofeed.NewParser(),
+		parser:    gofeed.NewParser(),
+		rsshubURL: rsshubURL,
 	}
 }
 
@@ -42,8 +50,15 @@ type FeedItem struct {
 }
 
 func (f *Fetcher) FetchFeed(feed *models.Feed) ([]FeedItem, error) {
+	// 处理 rsshub:// 协议
+	feedURL := feed.URL
+	if strings.HasPrefix(feedURL, "rsshub://") {
+		path := strings.TrimPrefix(feedURL, "rsshub://")
+		feedURL = f.rsshubURL + "/" + path
+	}
+
 	// Fetch feed content
-	resp, err := f.client.Get(feed.URL)
+	resp, err := f.client.Get(feedURL)
 	if err != nil {
 		return nil, fmt.Errorf("failed to fetch feed: %w", err)
 	}
@@ -124,12 +139,39 @@ func (f *Fetcher) SaveArticles(feedID int64, items []FeedItem) error {
 	defer stmt.Close()
 
 	for _, item := range items {
+		// 处理内容：清理 HTML、修复相对 URL、处理附件
+		content := sanitizer.SanitizeHTML(item.Content)
+		if item.URL != "" {
+			content = sanitizer.FixRelativeURLs(content, item.URL)
+		}
+
+		// 处理附件
+		var enclosures []sanitizer.Enclosure
+		if item.AudioURL != "" {
+			enclosures = append(enclosures, sanitizer.Enclosure{
+				URL:    item.AudioURL,
+				Type:   "audio/mpeg",
+				Medium: "audio",
+			})
+		}
+		if item.VideoURL != "" {
+			enclosures = append(enclosures, sanitizer.Enclosure{
+				URL:    item.VideoURL,
+				Type:   "video/mp4",
+				Medium: "video",
+			})
+		}
+		content = sanitizer.ProcessEnclosures(content, enclosures)
+
+		// 智能提取缩略图
+		imageURL := sanitizer.ExtractThumbnail(content, item.ImageURL)
+
 		_, err := stmt.Exec(
 			feedID,
 			item.Title,
 			item.URL,
-			item.Content,
-			item.ImageURL,
+			content,
+			imageURL,
 			item.AudioURL,
 			item.VideoURL,
 			item.Author,
@@ -222,7 +264,15 @@ func (f *Fetcher) FetchContent(url string) (string, error) {
 		return "", fmt.Errorf("failed to read response: %w", err)
 	}
 
-	return string(body), nil
+	content := string(body)
+
+	// 清理 HTML
+	content = sanitizer.SanitizeHTML(content)
+
+	// 修复相对 URL
+	content = sanitizer.FixRelativeURLs(content, url)
+
+	return content, nil
 }
 
 func (f *Fetcher) DiscoverFeeds(url string) ([]string, error) {

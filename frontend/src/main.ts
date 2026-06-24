@@ -5,6 +5,7 @@ import App from './App.vue'
 import router from './router'
 import en from './i18n/locales/en'
 import zh from './i18n/locales/zh'
+import { vLazyload } from './directives/lazyload'
 import './style.css'
 
 // 初始化主题
@@ -24,6 +25,7 @@ const i18n = createI18n({
 })
 
 const app = createApp(App)
+app.directive('lazyload', vLazyload)
 app.use(createPinia())
 app.use(router)
 app.use(i18n)

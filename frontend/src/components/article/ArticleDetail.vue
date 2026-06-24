@@ -178,7 +178,7 @@ function openOriginal() {
       <div ref="scrollContainer" class="flex-1 overflow-y-auto p-6">
         <div v-if="currentArticle.image_url" class="mb-6">
           <img 
-            :src="currentArticle.image_url" 
+            v-lazyload="currentArticle.image_url"
             class="w-full h-auto rounded-lg"
             @error="($event.target as HTMLImageElement).style.display = 'none'"
           />

@@ -70,7 +70,8 @@ export default {
     markAllAsRead: '全部标记已读',
     noArticles: '暂无文章',
     noContent: '文章内容未加载',
-    loadingMore: '加载更多...'
+    loadingMore: '加载更多...',
+    selected: '已选择'
   },
   filter: {
     all: '全部',
@@ -151,5 +152,22 @@ export default {
     compact: '紧凑',
     card: '卡片',
     gallery: '画廊'
+  },
+  view: {
+    list: '列表视图',
+    card: '卡片视图',
+    compact: '紧凑视图'
+  },
+  date: {
+    today: '今天',
+    yesterday: '昨天'
+  },
+  action: {
+    select: '选择',
+    cancel: '取消',
+    selectAll: '全选',
+    markRead: '标记已读',
+    favorite: '收藏',
+    hide: '隐藏'
   }
 }

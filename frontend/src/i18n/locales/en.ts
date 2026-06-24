@@ -70,7 +70,8 @@ export default {
     markAllAsRead: 'Mark All as Read',
     noArticles: 'No articles',
     noContent: 'Article content not loaded',
-    loadingMore: 'Loading more...'
+    loadingMore: 'Loading more...',
+    selected: 'selected'
   },
   filter: {
     all: 'All',
@@ -127,5 +128,22 @@ export default {
     compact: 'Compact',
     card: 'Card',
     gallery: 'Gallery'
+  },
+  view: {
+    list: 'List View',
+    card: 'Card View',
+    compact: 'Compact View'
+  },
+  date: {
+    today: 'Today',
+    yesterday: 'Yesterday'
+  },
+  action: {
+    select: 'Select',
+    cancel: 'Cancel',
+    selectAll: 'Select All',
+    markRead: 'Mark Read',
+    favorite: 'Favorite',
+    hide: 'Hide'
   }
 }

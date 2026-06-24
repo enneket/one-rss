@@ -18,7 +18,7 @@ RUN CGO_ENABLED=0 go build -o /app/server main.go
 # Final stage
 FROM alpine:latest
 
-RUN apk add --no-cache ca-certificates tzdata
+RUN apk add --no-cache ca-certificates tzdata curl
 
 WORKDIR /app
 

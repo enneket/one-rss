@@ -7,8 +7,11 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
+	"strings"
 	"time"
 
+	"github.com/mmcdole/gofeed"
 	feedpkg "github.com/zjx/one-rss/internal/feed"
 	"github.com/zjx/one-rss/internal/models"
 )
@@ -78,14 +81,66 @@ func handleAddFeed(db *sql.DB) http.HandlerFunc {
 			return
 		}
 
-		// TODO: Fetch feed info from URL
-		title := req.URL
+		// 处理 rsshub:// 协议
+		feedURL := req.URL
+		isRsshub := false
+		rsshubPath := ""
+		if strings.HasPrefix(feedURL, "rsshub://") {
+			isRsshub = true
+			rsshubPath = strings.TrimPrefix(feedURL, "rsshub://")
+			rsshubURL := os.Getenv("RSSHUB_URL")
+			if rsshubURL == "" {
+				rsshubURL = "http://rsshub:1200"
+			}
+			feedURL = rsshubURL + "/" + rsshubPath
+		}
+
+		// 获取 RSS 源信息
+		title := feedURL
 		description := ""
+		link := ""
+		imageURL := ""
+
+		// 使用 gofeed 解析 RSS 源
+		client := &http.Client{Timeout: 15 * time.Second}
+		resp, err := client.Get(feedURL)
+		if err == nil {
+			defer resp.Body.Close()
+			body, err := io.ReadAll(resp.Body)
+			if err == nil {
+				parser := gofeed.NewParser()
+				feed, err := parser.ParseString(string(body))
+				if err == nil {
+					// 获取真实标题
+					if feed.Title != "" {
+						title = feed.Title
+					}
+					// 获取描述
+					if feed.Description != "" {
+						description = feed.Description
+					}
+					// 获取网站链接
+					if feed.Link != "" {
+						link = feed.Link
+					}
+					// 获取图标
+					if feed.Image != nil && feed.Image.URL != "" {
+						imageURL = feed.Image.URL
+					}
+				}
+			}
+		}
+
+		// 保存 URL：对于 rsshub:// 协议，保存原始格式以便后续解析
+		saveURL := feedURL
+		if isRsshub {
+			saveURL = "rsshub://" + rsshubPath
+		}
 
 		result, err := db.Exec(`
-			INSERT INTO feeds (url, title, description, category, last_updated)
-			VALUES (?, ?, ?, ?, ?)
-		`, req.URL, title, description, req.Category, time.Now())
+			INSERT INTO feeds (url, title, link, description, category, image_url, last_updated)
+			VALUES (?, ?, ?, ?, ?, ?, ?)
+		`, saveURL, title, link, description, req.Category, imageURL, time.Now())
 		if err != nil {
 			errorResponse(w, http.StatusInternalServerError, "Failed to add feed")
 			return
@@ -93,10 +148,13 @@ func handleAddFeed(db *sql.DB) http.HandlerFunc {
 
 		id, _ := result.LastInsertId()
 		jsonResponse(w, map[string]interface{}{
-			"id":      id,
-			"url":     req.URL,
-			"title":   title,
-			"message": "Feed added successfully",
+			"id":          id,
+			"url":         saveURL,
+			"title":       title,
+			"link":        link,
+			"description": description,
+			"image_url":   imageURL,
+			"message":     "Feed added successfully",
 		})
 	}
 }

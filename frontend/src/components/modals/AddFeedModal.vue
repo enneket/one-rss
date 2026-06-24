@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useAppStore } from '@/stores/app'
 import { PhX, PhMagnifyingGlass, PhPlus } from '@phosphor-icons/vue'
+import axios from 'axios'
 
 const { t } = useI18n()
 const store = useAppStore()
@@ -16,6 +17,28 @@ const category = ref('')
 const isLoading = ref(false)
 const error = ref('')
 const discoveredFeeds = ref<string[]>([])
+const rsshubEndpoint = ref('https://rsshub.app')
+
+onMounted(async () => {
+  // 加载 RSSHub 端点配置
+  try {
+    const response = await axios.get('/api/settings')
+    if (response.data.rsshub_endpoint) {
+      rsshubEndpoint.value = response.data.rsshub_endpoint
+    }
+  } catch (err) {
+    // 使用默认值
+  }
+})
+
+function convertRsshubUrl(inputUrl: string): string {
+  // 处理 rsshub:// 协议
+  if (inputUrl.startsWith('rsshub://')) {
+    const path = inputUrl.replace('rsshub://', '')
+    return `${rsshubEndpoint.value}/${path}`
+  }
+  return inputUrl
+}
 
 async function addFeed() {
   if (!url.value) {
@@ -27,7 +50,8 @@ async function addFeed() {
   error.value = ''
 
   try {
-    await store.addFeed(url.value, category.value || undefined)
+    const feedUrl = convertRsshubUrl(url.value)
+    await store.addFeed(feedUrl, category.value || undefined)
     emit('close')
   } catch (err: any) {
     error.value = err.message || 'Failed to add feed'
@@ -44,12 +68,24 @@ async function discoverFeeds() {
 
   isLoading.value = true
   error.value = ''
+  discoveredFeeds.value = []
 
   try {
-    // TODO: Implement feed discovery
-    discoveredFeeds.value = []
+    const response = await axios.get('/api/feeds/discover', {
+      params: { url: url.value }
+    })
+    
+    if (response.data.feeds && response.data.feeds.length > 0) {
+      discoveredFeeds.value = response.data.feeds
+      if (response.data.feeds.length === 1) {
+        // 如果只发现一个订阅源，直接填入
+        url.value = response.data.feeds[0]
+      }
+    } else {
+      error.value = 'No feeds found on this page'
+    }
   } catch (err: any) {
-    error.value = err.message || 'Failed to discover feeds'
+    error.value = err.response?.data?.error || 'Failed to discover feeds'
   } finally {
     isLoading.value = false
   }
@@ -80,7 +116,7 @@ async function discoverFeeds() {
             <input 
               v-model="url" 
               class="input flex-1" 
-              placeholder="https://example.com/feed.xml"
+              placeholder="https://example.com/feed.xml or rsshub://path"
               @keyup.enter="addFeed"
             />
             <button 

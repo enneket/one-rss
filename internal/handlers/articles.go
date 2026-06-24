@@ -7,6 +7,7 @@ import (
 	"strconv"
 
 	"github.com/zjx/one-rss/internal/models"
+	"github.com/zjx/one-rss/internal/sanitizer"
 )
 
 func handleArticles(db *sql.DB) http.HandlerFunc {
@@ -104,9 +105,17 @@ func handleArticleContent(db *sql.DB) http.HandlerFunc {
 			return
 		}
 
+		// 获取文章 URL 用于修复相对链接
+		var articleURL string
+		err := db.QueryRow("SELECT url FROM articles WHERE id = ?", articleID).Scan(&articleURL)
+		if err != nil && err != sql.ErrNoRows {
+			errorResponse(w, http.StatusInternalServerError, "Failed to fetch article")
+			return
+		}
+
 		// 首先尝试从 article_contents 表获取内容
 		var content string
-		err := db.QueryRow("SELECT content FROM article_contents WHERE article_id = ?", articleID).Scan(&content)
+		err = db.QueryRow("SELECT content FROM article_contents WHERE article_id = ?", articleID).Scan(&content)
 		if err == sql.ErrNoRows {
 			// 如果 article_contents 没有数据，尝试从 articles 表获取
 			err = db.QueryRow("SELECT content FROM articles WHERE id = ?", articleID).Scan(&content)
@@ -121,6 +130,14 @@ func handleArticleContent(db *sql.DB) http.HandlerFunc {
 		} else if err != nil {
 			errorResponse(w, http.StatusInternalServerError, "Failed to fetch content")
 			return
+		}
+
+		// 确保内容经过清理
+		content = sanitizer.SanitizeHTML(content)
+
+		// 修复相对 URL
+		if articleURL != "" {
+			content = sanitizer.FixRelativeURLs(content, articleURL)
 		}
 
 		jsonResponse(w, map[string]string{"content": content})
@@ -258,6 +275,129 @@ func handleMarkAllRead(db *sql.DB) http.HandlerFunc {
 		}
 
 		jsonResponse(w, map[string]string{"message": "All articles marked as read"})
+	}
+}
+
+func handleBatchRead(db *sql.DB) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodPost {
+			errorResponse(w, http.StatusMethodNotAllowed, "Method not allowed")
+			return
+		}
+
+		var req struct {
+			IDs []int64 `json:"ids"`
+		}
+		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+			errorResponse(w, http.StatusBadRequest, "Invalid request body")
+			return
+		}
+
+		if len(req.IDs) == 0 {
+			errorResponse(w, http.StatusBadRequest, "IDs are required")
+			return
+		}
+
+		query := "UPDATE articles SET is_read = 1 WHERE id IN ("
+		args := make([]interface{}, len(req.IDs))
+		for i, id := range req.IDs {
+			if i > 0 {
+				query += ","
+			}
+			query += "?"
+			args[i] = id
+		}
+		query += ")"
+
+		_, err := db.Exec(query, args...)
+		if err != nil {
+			errorResponse(w, http.StatusInternalServerError, "Failed to batch mark as read")
+			return
+		}
+
+		jsonResponse(w, map[string]string{"message": "Articles marked as read"})
+	}
+}
+
+func handleBatchFavorite(db *sql.DB) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodPost {
+			errorResponse(w, http.StatusMethodNotAllowed, "Method not allowed")
+			return
+		}
+
+		var req struct {
+			IDs []int64 `json:"ids"`
+		}
+		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+			errorResponse(w, http.StatusBadRequest, "Invalid request body")
+			return
+		}
+
+		if len(req.IDs) == 0 {
+			errorResponse(w, http.StatusBadRequest, "IDs are required")
+			return
+		}
+
+		query := "UPDATE articles SET is_favorite = NOT is_favorite WHERE id IN ("
+		args := make([]interface{}, len(req.IDs))
+		for i, id := range req.IDs {
+			if i > 0 {
+				query += ","
+			}
+			query += "?"
+			args[i] = id
+		}
+		query += ")"
+
+		_, err := db.Exec(query, args...)
+		if err != nil {
+			errorResponse(w, http.StatusInternalServerError, "Failed to batch toggle favorite")
+			return
+		}
+
+		jsonResponse(w, map[string]string{"message": "Favorites toggled"})
+	}
+}
+
+func handleBatchHide(db *sql.DB) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodPost {
+			errorResponse(w, http.StatusMethodNotAllowed, "Method not allowed")
+			return
+		}
+
+		var req struct {
+			IDs []int64 `json:"ids"`
+		}
+		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+			errorResponse(w, http.StatusBadRequest, "Invalid request body")
+			return
+		}
+
+		if len(req.IDs) == 0 {
+			errorResponse(w, http.StatusBadRequest, "IDs are required")
+			return
+		}
+
+		query := "UPDATE articles SET is_hidden = NOT is_hidden WHERE id IN ("
+		args := make([]interface{}, len(req.IDs))
+		for i, id := range req.IDs {
+			if i > 0 {
+				query += ","
+			}
+			query += "?"
+			args[i] = id
+		}
+		query += ")"
+
+		_, err := db.Exec(query, args...)
+		if err != nil {
+			errorResponse(w, http.StatusInternalServerError, "Failed to batch toggle hide")
+			return
+		}
+
+		jsonResponse(w, map[string]string{"message": "Hide toggled"})
 	}
 }
 
