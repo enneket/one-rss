@@ -3,7 +3,9 @@ package handlers
 import (
 	"database/sql"
 	"encoding/json"
+	"log"
 	"net/http"
+	"sync"
 	"time"
 
 	"github.com/zjx/one-rss/internal/feed"
@@ -161,18 +163,45 @@ func handleRefresh(db *sql.DB, fetcher *feed.Fetcher) http.HandlerFunc {
 			feedIDs = append(feedIDs, id)
 		}
 
-		go func() {
-			for _, id := range feedIDs {
-				var feed models.Feed
-				err := db.QueryRow("SELECT id, title, url, refresh_interval, last_updated FROM feeds WHERE id = ?", id).Scan(&feed.ID, &feed.Title, &feed.URL, &feed.RefreshInterval, &feed.LastUpdated)
-				if err != nil {
-					continue
-				}
-				fetcher.FetchAndSave(&feed)
-			}
-		}()
+		var wg sync.WaitGroup
+		var mu sync.Mutex
+		var refreshed, failed int
 
-		jsonResponse(w, map[string]string{"message": "Refresh started"})
+		for _, id := range feedIDs {
+			wg.Add(1)
+			go func(feedID int64) {
+				defer wg.Done()
+				var feed models.Feed
+				err := db.QueryRow("SELECT id, title, url, refresh_interval, last_updated FROM feeds WHERE id = ?", feedID).Scan(&feed.ID, &feed.Title, &feed.URL, &feed.RefreshInterval, &feed.LastUpdated)
+				if err != nil {
+					log.Printf("Refresh: failed to query feed %d: %v", feedID, err)
+					mu.Lock()
+					failed++
+					mu.Unlock()
+					return
+				}
+				if err := fetcher.FetchAndSave(&feed); err != nil {
+					log.Printf("Refresh: failed to fetch feed %s: %v", feed.Title, err)
+					mu.Lock()
+					failed++
+					mu.Unlock()
+				} else {
+					log.Printf("Refresh: feed %s updated", feed.Title)
+					mu.Lock()
+					refreshed++
+					mu.Unlock()
+				}
+			}(id)
+		}
+
+		wg.Wait()
+
+		jsonResponse(w, map[string]interface{}{
+			"message":   "Refresh completed",
+			"refreshed": refreshed,
+			"failed":    failed,
+			"total":     len(feedIDs),
+		})
 	}
 }
 

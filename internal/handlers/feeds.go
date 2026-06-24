@@ -244,7 +244,10 @@ func handleRefreshFeed(db *sql.DB) http.HandlerFunc {
 
 		// Create fetcher and refresh feed
 		fetcher := feedpkg.NewFetcher(db)
-		go fetcher.FetchAndSave(&feed)
+		if err := fetcher.FetchAndSave(&feed); err != nil {
+			errorResponse(w, http.StatusInternalServerError, fmt.Sprintf("Failed to refresh feed: %v", err))
+			return
+		}
 
 		jsonResponse(w, map[string]string{"message": "Feed refresh started"})
 	}
