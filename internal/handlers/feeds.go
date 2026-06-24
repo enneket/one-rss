@@ -103,29 +103,34 @@ func handleAddFeed(db *sql.DB) http.HandlerFunc {
 
 		// 使用 gofeed 解析 RSS 源
 		client := &http.Client{Timeout: 15 * time.Second}
-		resp, err := client.Get(feedURL)
+		httpReq, err := http.NewRequest("GET", feedURL, nil)
 		if err == nil {
-			defer resp.Body.Close()
-			body, err := io.ReadAll(resp.Body)
+			httpReq.Header.Set("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36")
+			httpReq.Header.Set("Accept", "application/rss+xml,application/atom+xml,application/xml;q=0.9,*/*;q=0.8")
+			resp, err := client.Do(httpReq)
 			if err == nil {
-				parser := gofeed.NewParser()
-				feed, err := parser.ParseString(string(body))
+				defer resp.Body.Close()
+				body, err := io.ReadAll(resp.Body)
 				if err == nil {
-					// 获取真实标题
-					if feed.Title != "" {
-						title = feed.Title
-					}
-					// 获取描述
-					if feed.Description != "" {
-						description = feed.Description
-					}
-					// 获取网站链接
-					if feed.Link != "" {
-						link = feed.Link
-					}
-					// 获取图标
-					if feed.Image != nil && feed.Image.URL != "" {
-						imageURL = feed.Image.URL
+					parser := gofeed.NewParser()
+					feed, err := parser.ParseString(string(body))
+					if err == nil {
+						// 获取真实标题
+						if feed.Title != "" {
+							title = feed.Title
+						}
+						// 获取描述
+						if feed.Description != "" {
+							description = feed.Description
+						}
+						// 获取网站链接
+						if feed.Link != "" {
+							link = feed.Link
+						}
+						// 获取图标
+						if feed.Image != nil && feed.Image.URL != "" {
+							imageURL = feed.Image.URL
+						}
 					}
 				}
 			}
